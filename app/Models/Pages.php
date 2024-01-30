@@ -23,6 +23,15 @@ class Pages extends Model
 
     protected static function booted()
     {
+        static::retrieved(function ($page) {
+            if ($page->parent_id) {
+                $parent = Pages::find($page->parent_id);
+                if ($parent) {
+                    $page->slug = $parent->slug . '/' . $page->slug;
+                }
+            }
+        });
+
         static::deleting(function ($page) {
             $page->children()->delete();
         });

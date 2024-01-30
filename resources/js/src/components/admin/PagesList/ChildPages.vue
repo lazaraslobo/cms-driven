@@ -3,7 +3,7 @@
         <div class="col-12 inputs-container">
             <div class="d-flex my-3 justify-content-between">
                 <span>ID: {{data.id}}</span>
-                <a :href="data.slug">Open Page</a>
+                <router-link :to="clientRoutes.page(data.slug)">Open Page</router-link>
                 <router-link :to="adminRoutes.create_sub_cms_page(data.id)">Add sub page</router-link>
                 <i class="bi bi-trash3-fill" role="button" @click="deletePageById(data.id)"></i>
             </div>
@@ -34,7 +34,7 @@ import {defineComponent, PropType} from "vue";
 import './styles.scss';
 import axios from "axios";
 import {adminApis} from "../../../api/api-maps";
-import {adminRoutes} from "../../../routes/paths";
+import {adminRoutes, clientRoutes} from "../../../routes/paths";
 import {useRouter} from "vue-router";
 
 type propDataType = {
@@ -67,7 +67,8 @@ export default defineComponent({
     },
     data(){
         return {
-            adminRoutes
+            adminRoutes,
+            clientRoutes
         }
     },
     methods: {

@@ -1,6 +1,6 @@
 
 export const adminRoutePrefix = `/admin`
-export const clientRoutePrefix = `/`
+export const clientRoutePrefix = ``
 
 export const adminRoutes = {
     admin_home: `${adminRoutePrefix}`,
@@ -11,5 +11,5 @@ export const adminRoutes = {
 
 
 export const clientRoutes = {
-    home: `${clientRoutePrefix}`,
+    page: (slug: string) => `${clientRoutePrefix}/${slug}`
 }
