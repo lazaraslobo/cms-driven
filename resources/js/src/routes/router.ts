@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import AddPagesComp from '../components/Pages.vue';
+import CreateCmsPage from '../components/admin/CreatePage.vue';
+import {clientRoutes, adminRoutes} from './paths.js';
 
 const routes: RouteRecordRaw[] = [
     {
-        path: '/',
-        name: 'Home',
-        component: AddPagesComp,
+        path: adminRoutes.admin_home,
+        name: 'admin-home-route',
+        component: CreateCmsPage,
     }
 ];
 

@@ -14,12 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/lobo', function () {
+Route::get('/{any}', function () {
     return view('admin');
-});
+})->where('any', '.*');
 
-Route::get('/', function () {
-    return view('admin');
-});
 //Route::get('/{slug}', [PagesControllerAlias::class, 'show'])->where('slug', '.*');
 
