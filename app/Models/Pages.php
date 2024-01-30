@@ -20,4 +20,11 @@ class Pages extends Model
     {
         return $this->belongsTo(Pages::class, 'parent_id')->with('parent');
     }
+
+    protected static function booted()
+    {
+        static::deleting(function ($page) {
+            $page->children()->delete();
+        });
+    }
 }
