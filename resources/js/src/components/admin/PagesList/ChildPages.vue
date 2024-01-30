@@ -59,6 +59,10 @@ export default defineComponent({
     props: {
         data: {
             type:  Object as PropType<propDataType>
+        },
+        reloadCallback: {
+            type: Function as PropType<() => void>,
+            default: () => null
         }
     },
     data(){
@@ -71,13 +75,14 @@ export default defineComponent({
             const {title,content,slug,id,parent_id} = this.data;
             axios.post(adminApis.updateOrCreatePageData, { title, content, slug, parent_id, id})
             .then(({data}) => {
+                this.reloadCallback();
                 console.log("resp ", data);
             })
         },
         deletePageById(id: string|number){
             axios.delete(adminApis.removePageById(id))
                 .then(({data}) => {
-                    window.location.reload();
+                    this.reloadCallback();
                 })
         }
     }

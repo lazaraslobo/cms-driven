@@ -4,9 +4,10 @@
             <span class="title col-12">CMS Page list</span>
 
             <div class="col-3 left-container">
-                <span :class="['d-flex justify-content-between', activeTab === index && 'active']" v-for="(eachItem, index) in cmsList.list" :key="index" role="button" @click="activeTab = index">
-                    {{eachItem.title}}
-                </span>
+                <div :class="['d-flex flex-wrap justify-content-between each-item', activeTab === index && 'active']" v-for="(eachItem, index) in cmsList.list" :key="index" role="button" @click="activeTab = index">
+                    <span class="item col-12">{{eachItem.title}}</span>
+                    <span class="sub-item col-12 mt-2">Slug: {{eachItem.slug}}</span>
+                </div>
                 <div class="d-flex justify-content-center mt-5">
                     <router-link :to="adminRoutes.create_new_cms_page">Add new page?</router-link>
                 </div>
@@ -15,7 +16,7 @@
                 <div class="col-12" v-if="cmsList.list[activeTab]">
                     <div class="col-12 d-flex">
                         <ChildPagesComp
-                            @page-deleted="getPagesList"
+                            :reload-callback="getPagesList"
                             :data="cmsList.list[activeTab]"
                             :key="index"
                         />

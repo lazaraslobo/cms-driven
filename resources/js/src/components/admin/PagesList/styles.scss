@@ -7,8 +7,14 @@
 
     .left-container {
         background: #f9f9f9;
-
-        span {
+        .each-item {
+            .item{
+                font-size: 24px;
+                font-weight: 500;
+            }
+            .sub-item{
+                font-size: 14px;
+            }
             padding: 1rem 10px;
 
             &.active {

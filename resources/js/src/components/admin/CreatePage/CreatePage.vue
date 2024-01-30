@@ -2,8 +2,9 @@
     <div class="create-cms-page-container container">
         <div class="row mt-5 justify-content-center">
             <div class="col-12 col-lg-6 inputs-container">
-                <div class="d-flex my-3 justify-content-center mb-5" v-if="parentRouteId">
-                    <h2>Adding subpage for ID : {{parentRouteId}}</h2>
+                <div class="d-flex my-3 justify-content-center mb-5">
+                    <h2 v-if="parentRouteId">Creat new sub page for ID : {{parentRouteId}}</h2>
+                    <h2 v-else>Create new parent page</h2>
                 </div>
                 <div class="d-flex my-3 justify-content-between">
                     TITLE: <input type="text" v-model="title"/>
