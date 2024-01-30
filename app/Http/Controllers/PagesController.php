@@ -44,7 +44,7 @@ class PagesController extends Controller
         //        if ($validator->fails()) {
         //            return response()->json(['errors' => $validator->errors()], 422);
         //        }
-        $attr = $request->only(['title', 'content']);
+        $attr = $request->only(['title', 'content', 'parent_id']);
         $attr['slug'] = Str::slug($request->get('slug'));
          $this->pages::updateOrCreate(
              ['id' => $request->only(['id'])],

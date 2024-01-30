@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
                 component: CreateCmsPage
             },
             {
+                path: adminRoutes.create_sub_cms_page(':parentId'),
+                name: 'admin-create-sub-cms-page-route',
+                component: CreateCmsPage
+            },
+            {
                 path: adminRoutes.cms_pages_list,
                 name: 'admin-cms-page-list-route',
                 component: CmsPagesList

@@ -1,7 +1,10 @@
 <template>
     <div class="create-cms-page-container container">
         <div class="row mt-5 justify-content-center">
-            <div class="col-6 inputs-container">
+            <div class="col-12 col-lg-6 inputs-container">
+                <div class="d-flex my-3 justify-content-center mb-5" v-if="parentRouteId">
+                    <h2>Adding subpage for ID : {{parentRouteId}}</h2>
+                </div>
                 <div class="d-flex my-3 justify-content-between">
                     TITLE: <input type="text" v-model="title"/>
                 </div>
@@ -25,7 +28,7 @@ import {defineComponent, PropType} from "vue";
 import './styles.scss';
 import axios from "axios";
 import {adminApis} from "../../../api/api-maps";
-import { useRouter } from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import {adminRoutes} from "../../../routes/paths";
 
 type propDataType = {
@@ -43,9 +46,13 @@ export default defineComponent({
     name: "createNewPage",
     setup(){
         const router = useRouter();
+        const route = useRoute();
+        const parentRouteId = route.params.parentId;
+
         return {
             router,
-            adminRoutes
+            adminRoutes,
+            parentRouteId
         }
     },
     data(){
@@ -57,8 +64,17 @@ export default defineComponent({
     },
     methods: {
         savePageData(){
-            axios.post(adminApis.updateOrCreatePageData, {title : this.title, content: this.title, slug: this.title})
-                .then(({data}) => {
+            let payload = {
+                title : this.title,
+                content: this.content,
+                slug: this.slug
+            }
+
+            if(this.parentRouteId){
+                payload['parent_id'] = this.parentRouteId
+            }
+
+            axios.post(adminApis.updateOrCreatePageData, payload).then(({data}) => {
                     console.log("resp ", data);
                     this.router.push(adminRoutes.cms_pages_list);
                 }).catch((err) => console.log("error", err));

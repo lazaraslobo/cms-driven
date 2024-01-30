@@ -4,6 +4,7 @@
             <div class="d-flex my-3 justify-content-between">
                 <span>ID: {{data.id}}</span>
                 <a :href="data.slug">Open Page</a>
+                <router-link :to="adminRoutes.create_sub_cms_page(data.id)">Add sub page</router-link>
             </div>
             <div class="d-flex my-3 justify-content-between">
                 TITLE: <input type="text" v-model="data.title" />
@@ -32,6 +33,7 @@ import {defineComponent, PropType} from "vue";
 import './styles.scss';
 import axios from "axios";
 import {adminApis} from "../../../api/api-maps";
+import {adminRoutes} from "../../../routes/paths";
 
 type propDataType = {
     id: number;
@@ -49,6 +51,11 @@ export default defineComponent({
     props: {
         data: {
             type:  Object as PropType<propDataType>
+        }
+    },
+    data(){
+        return {
+            adminRoutes
         }
     },
     methods: {
