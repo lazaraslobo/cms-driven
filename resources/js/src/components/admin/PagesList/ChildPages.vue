@@ -5,6 +5,7 @@
                 <span>ID: {{data.id}}</span>
                 <a :href="data.slug">Open Page</a>
                 <router-link :to="adminRoutes.create_sub_cms_page(data.id)">Add sub page</router-link>
+                <i class="bi bi-trash3-fill" role="button" @click="deletePageById(data.id)"></i>
             </div>
             <div class="d-flex my-3 justify-content-between">
                 TITLE: <input type="text" v-model="data.title" />
@@ -34,6 +35,7 @@ import './styles.scss';
 import axios from "axios";
 import {adminApis} from "../../../api/api-maps";
 import {adminRoutes} from "../../../routes/paths";
+import {useRouter} from "vue-router";
 
 type propDataType = {
     id: number;
@@ -48,6 +50,12 @@ type propDataType = {
 
 export default defineComponent({
     name: "ChildPages",
+    setup(){
+        const router = useRouter();
+        return {
+            router
+        }
+    },
     props: {
         data: {
             type:  Object as PropType<propDataType>
@@ -60,17 +68,17 @@ export default defineComponent({
     },
     methods: {
         savePageData(){
-            const {
-                title,
-                content,
-                slug,
-                id,
-                parent_id
-            } = this.data;
+            const {title,content,slug,id,parent_id} = this.data;
             axios.post(adminApis.updateOrCreatePageData, { title, content, slug, parent_id, id})
             .then(({data}) => {
                 console.log("resp ", data);
             })
+        },
+        deletePageById(id: string|number){
+            axios.delete(adminApis.removePageById(id))
+                .then(({data}) => {
+                    window.location.reload();
+                })
         }
     }
 })

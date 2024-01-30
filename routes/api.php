@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->group(function (){
     Route::get('/pages-list', [PagesController::class, 'getAllPagesList']);
     Route::post('/update', [PagesController::class, 'updateOrCreatePageContent']);
+    Route::delete('/remove-page/{id}', [PagesController::class, 'removePage']);
 });

@@ -53,4 +53,12 @@ class PagesController extends Controller
 
         return response()->json(['data' => []]);
     }
+
+    public function removePage(
+        string $pageId
+    ){
+        $page = $this->pages::find($pageId);
+        return response()->json(['data' => $page ? $page->delete() : 'Page not found']);
+
+    }
 }

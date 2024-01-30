@@ -4,7 +4,7 @@
             <span class="title col-12">CMS Page list</span>
 
             <div class="col-3 left-container">
-                <span :class="['d-flex', activeTab === index && 'active']" v-for="(eachItem, index) in cmsList.list" :key="index" role="button" @click="activeTab = index">
+                <span :class="['d-flex justify-content-between', activeTab === index && 'active']" v-for="(eachItem, index) in cmsList.list" :key="index" role="button" @click="activeTab = index">
                     {{eachItem.title}}
                 </span>
                 <div class="d-flex justify-content-center mt-5">
@@ -15,6 +15,7 @@
                 <div class="col-12" v-if="cmsList.list[activeTab]">
                     <div class="col-12 d-flex">
                         <ChildPagesComp
+                            @page-deleted="getPagesList"
                             :data="cmsList.list[activeTab]"
                             :key="index"
                         />
@@ -32,6 +33,7 @@ import axios from "axios";
 import {adminApis} from "../../../api/api-maps";
 import ChildPagesComp from "./ChildPages.vue";
 import {adminRoutes} from "../../../routes/paths";
+import {useRoute, useRouter} from "vue-router";
 
 export default defineComponent({
     name: "CmsPagesLists",
@@ -50,6 +52,7 @@ export default defineComponent({
     },
     methods: {
         getPagesList(){
+            console.log("back");
             this.cmsList.isGettingData = true;
             axios.get(adminApis.get_all_cms_pages_list)
                 .then(({ data }) => {
@@ -60,7 +63,6 @@ export default defineComponent({
                 })
                 .finally(() => {
                     this.cmsList.isGettingData = false;
-                    // This block will be executed regardless of success or failure
                 });
         }
     },

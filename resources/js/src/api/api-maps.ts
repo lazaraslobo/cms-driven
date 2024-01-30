@@ -7,7 +7,9 @@ const commonApis = {
 
 export const adminApis = {
     get_all_cms_pages_list: `${adminApiUrl}/pages-list`,
-    updateOrCreatePageData:  `${adminApiUrl}/update`
+    updateOrCreatePageData:  `${adminApiUrl}/update`,
+    removePageById:  (pageId: string|number) => `${adminApiUrl}/remove-page/${pageId}`,
+
 }
 
 const clientApis = {
