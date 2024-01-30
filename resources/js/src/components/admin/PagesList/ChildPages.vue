@@ -3,7 +3,7 @@
         <div class="col-12 inputs-container">
             <div class="d-flex my-3 justify-content-between">
                 <span>ID: {{data.id}}</span>
-                <a :href="clientRoutes.page(data.slug)" target="_blank">Open Page</a>
+                <a :href="clientRoutes.page(data.formatted_slug ?? data.slug)" target="_blank">Open Page</a>
                 <router-link :to="adminRoutes.create_sub_cms_page(data.id)">Add sub page</router-link>
                 <i class="bi bi-trash3-fill" role="button" @click="deletePageById(data.id)"></i>
             </div>
@@ -14,7 +14,7 @@
                 CONTENT: <input type="text" v-model="data.content" />
             </div>
             <div class="d-flex my-3 justify-content-between">
-                SLUG: <input type="text" v-model="data.slug" />
+                SLUG: <input type="text" v-model="pageSlug" />
             </div>
             <div class="d-flex my-3 justify-content-end">
                 <button @click="savePageData()">SAVE</button>
@@ -46,6 +46,7 @@ type propDataType = {
     "created_at": any,
     "updated_at": any,
     children: propDataType[];
+    formatted_slug: string;
 }
 
 export default defineComponent({
@@ -68,13 +69,14 @@ export default defineComponent({
     data(){
         return {
             adminRoutes,
-            clientRoutes
+            clientRoutes,
+            pageSlug: ""
         }
     },
     methods: {
         savePageData(){
             const {title,content,slug,id,parent_id} = this.data;
-            axios.post(adminApis.updateOrCreatePageData, { title, content, slug, parent_id, id})
+            axios.post(adminApis.updateOrCreatePageData, { title, content, slug: this.pageSlug, parent_id, id})
             .then(({data}) => {
                 console.log("resp ", data);
                 if(this.reloadCallback === false){
@@ -92,6 +94,10 @@ export default defineComponent({
                     this.reloadCallback();
                 })
         }
+    },
+    mounted() {
+        const keys = (this.data?.slug as string).split("/");
+        this.pageSlug = (keys.length > 1 ? keys[keys.length - 1] : keys[0])
     }
 })
 </script>
