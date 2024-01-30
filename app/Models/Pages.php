@@ -10,4 +10,14 @@ class Pages extends Model
     use HasFactory;
     protected $table = 'tbl_pages';
     protected $fillable = ['parent_id', 'slug', 'title', 'content'];
+
+    public function children()
+    {
+        return $this->hasMany(Pages::class, 'parent_id')->with('children');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Pages::class, 'parent_id')->with('parent');
+    }
 }

@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pages;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    public function show($slug)
+    public function __construct(
+        protected Pages $pages
+    )
     {
-        $page = Pages::where('slug', $slug)->get();
-        return $page;
+    }
+
+    public function getAllPagesList()
+    {
+        $page = $this->pages::with('children')->whereNull('parent_id')->get();
+        return response()->json(['data' => $page]);
     }
 }
