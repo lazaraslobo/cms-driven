@@ -21,6 +21,3 @@ Route::get('/admin/{any}', function () {
 
 Route::get('/{any}', [ClientPageControllerAlias::class, 'getPageContentBySlug'])
     ->where('any', '.*');
-
-//Route::get('/{slug}', [PagesControllerAlias::class, 'show'])->where('slug', '.*');
-
