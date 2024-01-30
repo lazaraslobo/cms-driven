@@ -1,34 +1,43 @@
-.pages-list-container{
-    .title{
+.pages-list-container {
+    .title {
         font-size: 2rem;
         margin: 2rem 0rem;
         font-weight: 500;
     }
 
-    .left-container{
+    .left-container {
         background: #f9f9f9;
-        span{
+
+        span {
             padding: 1rem 10px;
-            &.active{
+
+            &.active {
                 background: #e9e9e9;
             }
         }
     }
-    .child-container{
-        .inputs-container{
+
+    .child-container {
+        margin-left: 2rem;
+
+        .inputs-container {
             padding: 1rem;
             background: #f6f6f6;
             margin: 1rem 0rem;
             border-radius: 8px;
-            span, input{
+
+            span,
+            input {
                 display: flex;
             }
-            input{
+
+            input {
                 padding: 5px 1rem;
                 border: solid 1px lightgrey;
                 border-radius: 8px;
             }
-            button{
+
+            button {
                 all: unset;
                 background: green;
                 color: white;
@@ -37,7 +46,8 @@
                 cursor: pointer;
             }
         }
-        .inner{
+
+        .inner {
             margin-left: 2rem;
         }
     }

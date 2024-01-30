@@ -57,9 +57,10 @@ export default defineComponent({
                 title,
                 content,
                 slug,
-                id
+                id,
+                parent_id
             } = this.data;
-            axios.post(adminApis.updateOrCreatePageData(id), { title, content, slug})
+            axios.post(adminApis.updateOrCreatePageData, { title, content, slug, parent_id, id})
             .then(({data}) => {
                 console.log("resp ", data);
             })

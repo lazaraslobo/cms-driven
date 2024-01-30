@@ -1,3 +1,34 @@
 .create-cms-page-container{
-    background: red;
+        margin-left: 2rem;
+
+        .inputs-container {
+            padding: 1rem;
+            background: #f6f6f6;
+            margin: 1rem 0rem;
+            border-radius: 8px;
+
+            span,
+            input {
+                display: flex;
+            }
+
+            input {
+                padding: 5px 1rem;
+                border: solid 1px lightgrey;
+                border-radius: 8px;
+            }
+
+            button {
+                all: unset;
+                background: green;
+                color: white;
+                padding: 5px 1.1rem;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+        }
+
+        .inner {
+            margin-left: 2rem;
+        }
 }

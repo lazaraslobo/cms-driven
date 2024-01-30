@@ -21,33 +21,35 @@ class PagesController extends Controller
         return response()->json(['data' => $page]);
     }
 
-    public function updatePageContent(
-        Request $request,
-        string $pageId
+    public function updateOrCreatePageContent(
+        Request $request
     ){
-        $rules = [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'slug' => 'required|string|max:255',
-        ];
-
-        $messages = [
-            'title.required' => 'The title field is required.',
-            'content.required' => 'The content field is required.',
-            'slug.required' => 'The slug field is required.',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+//        $rules = [
+//            'title' => 'required|string|max:255',
+//            'content' => 'required|string',
+//            'slug' => 'required|string|max:255',
+//            'parent_id' => 'required|number',
+//            'id' => ''
+//        ];
+//
+//        $messages = [
+//            'title.required' => 'The title field is required.',
+//            'content.required' => 'The content field is required.',
+//            'slug.required' => 'The slug field is required.',
+//            'parent_id.required' => 'The parent_id field is required.',
+//        ];
+//
+//        $validator = Validator::make($request->all(), $rules, $messages);
+//
+//        if ($validator->fails()) {
+//            return response()->json(['errors' => $validator->errors()], 422);
+//        }
 
         $this->pages::updateOrCreate(
-            ['id' => $pageId],
+            ['id' => $request->only(['id'])],
             $request->only(['title', 'content', 'slug'])
         );
 
-        return response()->json(['data' => $pageId]);
+        return response()->json(['data' => []]);
     }
 }
