@@ -1,10 +1,22 @@
 <template>
     <div class="pages-list-container container">
         <div class="d-flex flex-wrap">
-            <span class="title">CMS Page list</span>
+            <span class="title col-12">CMS Page list</span>
 
-            <div class="col-12">
-
+            <div class="col-3 left-container">
+                <span :class="['d-flex', activeTab === index && 'active']" v-for="(eachItem, index) in cmsList.list" :key="index" role="button" @click="activeTab = index">
+                    {{eachItem.title}}
+                </span>
+            </div>
+            <div class="col-9">
+                <div class="col-12" v-if="cmsList.list[activeTab]">
+                    <div class="col-12 d-flex justify-content-center">
+                        <ChildPagesComp
+                            :data="cmsList.list[activeTab]"
+                            :key="index"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -15,13 +27,16 @@ import {defineComponent} from "vue";
 import './styles.scss';
 import axios from "axios";
 import {adminApis} from "../../../api/api-maps";
+import ChildPagesComp from "./ChildPages.vue";
 
 export default defineComponent({
     name: "CmsPagesLists",
     components: {
+        ChildPagesComp
     },
     data(){
         return {
+            activeTab: 0,
             cmsList: {
                 isGettingData: false,
                 list: []
