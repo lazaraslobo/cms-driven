@@ -15,22 +15,13 @@ class ClientPageController extends Controller
 
     public function getPageContentBySlug(
         string $slug
-    ){
+    ) {
         $slugParts = explode('/', $slug);
-        $searchableSlug = count($slugParts) <= 1 ? $slug : $slugParts[0];
+        $searchableSlug = count($slugParts) <= 1 ? $slug : $slugParts[count($slugParts) - 1];
         $rootPage = $this->pages::where('slug', $searchableSlug);
-        if(count($slugParts) > 1){
-            $rootPage = $rootPage->with('children')->first();
-            if ($rootPage->children->isNotEmpty()) {
-                $matched = $rootPage->children->first();
-                if($slug === $matched->slug){
-                    return view('client', ["data" => $matched]);
-                }
-            }
-            return abort(404);
-        }
-        if($rootPage->first()){
-            return view('client', ["data" => $rootPage->first()]);
+        $dt = $rootPage->get()->first();
+        if ($dt) {
+            return view('client', ["data" => $rootPage->get()->first()]);
         }
         return abort(404);
     }
