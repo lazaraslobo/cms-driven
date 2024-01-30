@@ -1,4 +1,3 @@
-const appBaseUrl = import.meta.env.VITE_APP_URL;
 
 export const adminRoutePrefix = `/admin`
 export const clientRoutePrefix = `/`

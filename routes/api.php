@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::get('/pages-list', [PagesController::class, 'getAllPagesList']);
+Route::prefix('admin')->group(function (){
+    Route::get('/pages-list', [PagesController::class, 'getAllPagesList']);
+});
