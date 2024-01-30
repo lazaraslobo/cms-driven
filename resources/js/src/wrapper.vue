@@ -1,12 +1,13 @@
 <template>
-    <div>
-        <h1>My Vue 3 App</h1>
+    <div class="wrapper-container container-fluid">
         <router-view></router-view>
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+import './wrapper.scss';
+export default defineComponent({
     name: "wrapper"
-}
+})
 </script>

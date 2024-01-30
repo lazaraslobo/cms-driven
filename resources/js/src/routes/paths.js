@@ -5,7 +5,8 @@ export const clientRoutePrefix = `/`
 
 export const adminRoutes = {
     admin_home: `${adminRoutePrefix}`,
-    create_new_cms_page: `${adminRoutePrefix}/cms/create`
+    create_new_cms_page: `${adminRoutePrefix}/cms/create`,
+    cms_pages_list: `${adminRoutePrefix}/cms/list`
 }
 
 
