@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import CreateCmsPage from '../components/admin/CreatePage/CreatePage.vue';
 import CmsPagesList from '../components/admin/PagesList/index.vue';
-import {clientRoutes, adminRoutes, adminRoutePrefix, clientRoutePrefix} from './paths.js';
+import { clientRoutes, adminRoutes, adminRoutePrefix, clientRoutePrefix } from './paths.js';
 
 const routes: RouteRecordRaw[] = [
     {

@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->group(function (){
     Route::get('/pages-list', [PagesController::class, 'getAllPagesList']);
+    Route::post('/update/{pageId}', [PagesController::class, 'updatePageContent']);
 });

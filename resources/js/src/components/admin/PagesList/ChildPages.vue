@@ -6,16 +6,16 @@
                 <a :href="data.slug">Open Page</a>
             </div>
             <div class="d-flex my-3 justify-content-between">
-                TITLE: <input type="text" :value="data.title" />
+                TITLE: <input type="text" v-model="data.title" />
             </div>
             <div class="d-flex my-3 justify-content-between">
-                CONTENT: <input type="text" :value="data.content" />
+                CONTENT: <input type="text" v-model="data.content" />
             </div>
             <div class="d-flex my-3 justify-content-between">
-                SLUG: <input type="text" :value="data.slug" />
+                SLUG: <input type="text" v-model="data.slug" />
             </div>
             <div class="d-flex my-3 justify-content-end">
-                <button>SAVE</button>
+                <button @click="savePageData()">SAVE</button>
             </div>
         </div>
         <div class="col-12 inner">
@@ -30,6 +30,8 @@
 <script lang="ts">
 import {defineComponent, PropType} from "vue";
 import './styles.scss';
+import axios from "axios";
+import {adminApis} from "../../../api/api-maps";
 
 type propDataType = {
     id: number;
@@ -47,6 +49,20 @@ export default defineComponent({
     props: {
         data: {
             type:  Object as PropType<propDataType>
+        }
+    },
+    methods: {
+        savePageData(){
+            const {
+                title,
+                content,
+                slug,
+                id
+            } = this.data;
+            axios.post(adminApis.updateOrCreatePageData(id), { title, content, slug})
+            .then(({data}) => {
+                console.log("resp ", data);
+            })
         }
     }
 })
