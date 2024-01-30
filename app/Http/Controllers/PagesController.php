@@ -59,6 +59,7 @@ class PagesController extends Controller
     ){
         $page = $this->pages::find($pageId);
         return response()->json(['data' => $page ? $page->delete() : 'Page not found']);
-
     }
+
+
 }

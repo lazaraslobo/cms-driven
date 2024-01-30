@@ -3,7 +3,7 @@
         <div class="col-12 inputs-container">
             <div class="d-flex my-3 justify-content-between">
                 <span>ID: {{data.id}}</span>
-                <router-link :to="clientRoutes.page(data.slug)">Open Page</router-link>
+                <a :href="clientRoutes.page(data.slug)" target="_blank">Open Page</a>
                 <router-link :to="adminRoutes.create_sub_cms_page(data.id)">Add sub page</router-link>
                 <i class="bi bi-trash3-fill" role="button" @click="deletePageById(data.id)"></i>
             </div>
@@ -62,7 +62,7 @@ export default defineComponent({
         },
         reloadCallback: {
             type: Function as PropType<() => void>,
-            default: () => null
+            default: false
         }
     },
     data(){
@@ -76,13 +76,19 @@ export default defineComponent({
             const {title,content,slug,id,parent_id} = this.data;
             axios.post(adminApis.updateOrCreatePageData, { title, content, slug, parent_id, id})
             .then(({data}) => {
-                this.reloadCallback();
                 console.log("resp ", data);
+                if(this.reloadCallback === false){
+                    return window.location.reload();
+                }
+                this.reloadCallback();
             })
         },
         deletePageById(id: string|number){
             axios.delete(adminApis.removePageById(id))
                 .then(({data}) => {
+                    if(this.reloadCallback === false){
+                        return window.location.reload();
+                    }
                     this.reloadCallback();
                 })
         }
